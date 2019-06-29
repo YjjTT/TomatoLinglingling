@@ -9,17 +9,17 @@ Page({
       },
       {
         id: 2,
-        text: "嘻嘻嘻嘻嘻嘻嘻",
+        text: "嘻嘻嘻嘻嘻嘻嘻ddasdas",
         finished: false,
       },
       {
         id: 3,
-        text: "嘻嘻嘻嘻嘻嘻嘻",
+        text: "嘻嘻嘻嘻嘻嘻法法嘻",
         finished: true,
       },
       {
         id: 4,
-        text: "嘻嘻嘻嘻嘻嘻嘻",
+        text: "嘻嘻嘻嘻嘎嘎嘎嘻嘻嘻",
         finished: false,
       }
     ],
