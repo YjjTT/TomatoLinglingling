@@ -1,0 +1,6 @@
+<view class="container">
+  <view class="clock"><t-clock fontSize="52" text="{{formatTime}}"></t-clock></view>
+  <view class="stop"><t-button type="change" size="mini" text="暂停"></t-button></view>
+  <view class="giveup"><t-button type="change" size="mini" text="放弃"></t-button></view>
+  <view class="again"><t-button size="mini" text="再来一组"></t-button></view>
+</view>
