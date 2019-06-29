@@ -1,6 +1,14 @@
 <view class="container">
   <view class="clock"><t-clock fontSize="52" text="{{formatTime}}"></t-clock></view>
-  <view class="stop"><t-button type="change" size="mini" text="暂停"></t-button></view>
-  <view class="giveup"><t-button type="change" size="mini" text="放弃"></t-button></view>
-  <view class="again"><t-button size="mini" text="再来一组"></t-button></view>
+  <view class="stop" wx:if="{{!againButtonVisable}}">
+    <t-button type="change" size="mini" text="暂停" bindtap="clearTimer" wx:if="{{timerStatus === 'start'}}"></t-button>
+    <t-button type="change" size="mini" text="开始" bindtap="beginCountdown" wx:else></t-button>
+  </view>
+
+  <view class="giveup" wx:if="{{!againButtonVisable}}"><t-button size="mini" text="放弃" bindtap="showConfirm"></t-button></view>
+
+  <view class="again" wx:if="{{againButtonVisable}}" bindtap="againTime"><t-button size="mini" type="change" text="再来一组"></t-button></view>
+
+  <t-confirm placeholder="放弃的理由是什么？" bindconfirm="confirmGiveup" bindcancel="hideConfirm" visible="{{confirmVisable}}"></t-confirm>
+  <t-confirm placeholder="时间到了，你完成了什么？" bindconfirm="confirmFinish" bindcancel="confirmCancel" visible="{{againButtonVisable}}"></t-confirm>
 </view>

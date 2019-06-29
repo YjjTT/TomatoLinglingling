@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/tomato/tomato",
-    "pages/home/home"
+    "pages/home/home",
+    "pages/tomato/tomato"
   ],
   "window": {
     "backgroundTextStyle": "light",
