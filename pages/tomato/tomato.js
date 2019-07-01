@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    defaultSecond: 5,
+    defaultSecond: 1500,
     formatTime: "",
     timerStatus: "stop",
     confirmVisable: false,
@@ -51,14 +51,14 @@ Page({
     })
   },
   againTime(){
-    this.setData({ defaultSecond: 5, againButtonVisable: false })
+    this.setData({ defaultSecond: 1500, againButtonVisable: false })
     this.beginCountdown()
   },
   confirmFinish(event){
     let content = event.detail
   },
   confirmCancel(){
-    this.setData({ defaultSecond: 5, againButtonVisable: false })
+    this.setData({ defaultSecond: 1500, againButtonVisable: false })
     this.formatTime()
   },
   formatTime(){
