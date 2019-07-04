@@ -2,9 +2,13 @@
 const {http} = require('../../lib/http.js')
 
 Page({
+  updateId: '',
+  updateIndex: '',
   data: {
     lists: [],
-    visibleConfirm: false
+    visibleCreateConfirm: false,
+    visibleUpdateConfirm: false,
+    updateContent: ""
   },
 
   onShow(){
@@ -30,11 +34,33 @@ Page({
         })
     }
   },
-  hideCreateConfirm(event) {
-    this.setData({ visibleConfirm: false });
+  confirmUpdate(event){
+    let content = event.detail
+    http.put(`/todos/${this.updateId}`, {
+      description: content
+    })
+      .then(response => {
+        let todo = response.response.data.resource
+        this.data.lists[this.updateIndex] = todo
+        this.setData({ lists: this.data.lists })
+        this.hideUpdateConfirm();
+      })
   },
-  showConfirm() {
-    this.setData({ visibleConfirm: true });
+  changeText(event){
+    console.log(event)
+    let { content, id, index } = event.currentTarget.dataset
+    this.updateId = id
+    this.updateIndex = index
+    this.setData({ visibleUpdateConfirm: true, updateContent: content})
+  },
+  hideCreateConfirm(event) {
+    this.setData({ visibleCreateConfirm: false });
+  },
+  showCreateConfirm() {
+    this.setData({ visibleCreateConfirm: true });
+  },
+  hideUpdateConfirm(){
+    this.setData({ visibleUpdateConfirm: false });
   },
   updateTodo(event) {
     let index = event.currentTarget.dataset.index;
@@ -47,6 +73,5 @@ Page({
       this.data.lists[index] = todo
       this.setData({lists: this.data.lists})
     })
-   
   }
 });
