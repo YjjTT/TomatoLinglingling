@@ -1,42 +1,33 @@
 // pages/home/home.js
+const {http} = require('../../lib/http.js')
+
 Page({
   data: {
-    lists: [
-      {
-        id: 1,
-        text: "嘻嘻嘻嘻嘻嘻嘻",
-        finished: true
-      },
-      {
-        id: 2,
-        text: "嘻嘻嘻嘻嘻嘻嘻ddasdas",
-        finished: false
-      },
-      {
-        id: 3,
-        text: "嘻嘻嘻嘻嘻嘻法法嘻",
-        finished: true
-      },
-      {
-        id: 4,
-        text: "嘻嘻嘻嘻嘎嘎嘎嘻嘻嘻",
-        finished: false
-      }
-    ],
+    lists: [],
     visibleConfirm: false
   },
+
+  onShow(){
+    http.get('/todos').then(response=>{
+      this.setData({ lists: response.response.data.resources})
+    })
+  },
   confirmCreate(event) {
-    console.log(event);
-    let content = event.detail;
-    if (content) {
-      let todo = [
-        { id: this.data.lists.length + 1, text: content, finished: false }
-      ];
-      this.data.lists = todo.concat(this.data.lists);
-      this.setData({
-        lists: this.data.lists
-      });
-      this.hideCreateConfirm();
+    let content = event.detail
+    console.log(event.detail)
+    if(content){
+      http.post('/todos', {
+          description: content
+      })
+        .then(response => {
+          console.log(response)
+          let todo = response.response.data.resource
+          this.data.lists = todo.concat(this.data.lists);
+          this.setData({
+            lists: this.data.lists
+          });
+          this.hideCreateConfirm();
+        })
     }
   },
   hideCreateConfirm(event) {
