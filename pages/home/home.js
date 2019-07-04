@@ -22,7 +22,7 @@ Page({
         .then(response => {
           console.log(response)
           let todo = response.response.data.resource
-          this.data.lists = todo.concat(this.data.lists);
+          this.data.lists.push(todo)
           this.setData({
             lists: this.data.lists
           });
