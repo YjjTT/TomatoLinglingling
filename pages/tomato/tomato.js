@@ -1,4 +1,5 @@
 // pages/tomato/tomato.js
+const {http} = require('../../lib/http.js')
 Page({
 
   timer: null,
@@ -10,12 +11,14 @@ Page({
     formatTime: "",
     timerStatus: "stop",
     confirmVisable: false,
-    againButtonVisable: false
+    againButtonVisable: false,
+    tomato: {}
   },
-
-  
   onShow: function () {
     this.beginCountdown()
+    http.post('/tomatoes').then(res=>{
+      this.setData({ tomato: res.response.date.resource })
+    })
   },
   beginCountdown(){
     this.setData({ timerStatus: "start" })
@@ -45,9 +48,15 @@ Page({
     this.setData({ confirmVisable: false })
   },
   confirmGiveup(event){
+    console.log(event)
     let content = event.detail
-    wx.navigateBack({
-      to: -1
+    http.put(`/tomatoes/${this.tomato.id}`, {
+      description: content, aborted: true
+    })
+    .then(res=>{
+      wx.navigateBack({
+        to: -1
+      })
     })
   },
   againTime(){
