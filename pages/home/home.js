@@ -36,11 +36,17 @@ Page({
   showConfirm() {
     this.setData({ visibleConfirm: true });
   },
-  deleteTodo(event) {
-    console.log(event);
+  updateTodo(event) {
     let index = event.currentTarget.dataset.index;
-    console.log(index);
-    this.data.lists[index].finished = true;
-    this.setData({ lists: this.data.lists });
+    let id = event.currentTarget.dataset.id
+    http.put(`/todos/${id}`, {
+      completed: true
+    })
+    .then(response=>{
+      let todo = response.response.data.resource
+      this.data.lists[index] = todo
+      this.setData({lists: this.data.lists})
+    })
+   
   }
 });
