@@ -12,16 +12,16 @@ Page({
   },
 
   onShow(){
-    let me = wx.getStorageSync('me')
-    if (me.account) {
+    // let me = wx.getStorageSync('me')
+    // if (me.account) {
       http.get('/todos').then(response => {
         this.setData({ lists: response.response.data.resources })
       })
-    } else {
-      wx.redirectTo({
-        url: '/pages/login/login',
-      })
-    }
+    // } else {
+    //   wx.redirectTo({
+    //     url: '/pages/login/login',
+    //   })
+    // }
   },
 
   confirmCreate(event) {
