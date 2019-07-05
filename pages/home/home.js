@@ -8,7 +8,7 @@ Page({
     lists: [],
     visibleCreateConfirm: false,
     visibleUpdateConfirm: false,
-    updateContent: ""
+    updateContent: "",
   },
 
   onShow(){
@@ -16,6 +16,7 @@ Page({
       this.setData({ lists: response.response.data.resources})
     })
   },
+
   confirmCreate(event) {
     let content = event.detail
     console.log(event.detail)
@@ -46,6 +47,7 @@ Page({
         this.hideUpdateConfirm();
       })
   },
+
   changeText(event){
     console.log(event)
     let { content, id, index } = event.currentTarget.dataset
@@ -53,6 +55,7 @@ Page({
     this.updateIndex = index
     this.setData({ visibleUpdateConfirm: true, updateContent: content})
   },
+
   hideCreateConfirm(event) {
     this.setData({ visibleCreateConfirm: false });
   },

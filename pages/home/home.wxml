@@ -1,5 +1,5 @@
 <view class="home-container">
-  <scroll-view class="todoList" scroll-y="true">
+  <scroll-view class="todoList" scroll-y="true" scroll-x="true" >
     <view class="item" wx:for="{{lists}}" data-index="{{index}}" wx:key="{{item.id}}" data-id="{{item.id}}">
       <view class="select {{item.completed && 'active'}}" bindtap='updateTodo' data-index="{{index}}" data-id="{{item.id}}"></view>
       <text bindtap="changeText" data-content="{{item.description}}" data-id="{{item.id}}" data-index="{{index}}">{{item.description}}</text>

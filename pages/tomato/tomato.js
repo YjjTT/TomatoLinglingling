@@ -17,7 +17,22 @@ Page({
   onShow: function () {
     this.beginCountdown()
     http.post('/tomatoes').then(res=>{
-      this.setData({ tomato: res.response.date.resource })
+      console.log(res)
+      this.setData({ 
+        tomato: res.response.data.resource 
+      })
+    })
+  },
+  onHide(){
+    this.clearTimer()
+    http.put(`/tomatoes/${this.data.tomato.id}`, {
+      description: '退出放弃', aborted: true
+    })
+  },
+  onUnload(){
+    this.clearTimer()
+    http.put(`/tomatoes/${this.data.tomato.id}`, {
+      description: '退出放弃', aborted: true
     })
   },
   beginCountdown(){
@@ -50,7 +65,7 @@ Page({
   confirmGiveup(event){
     console.log(event)
     let content = event.detail
-    http.put(`/tomatoes/${this.tomato.id}`, {
+    http.put(`/tomatoes/${this.data.tomato.id}`, {
       description: content, aborted: true
     })
     .then(res=>{
@@ -65,6 +80,14 @@ Page({
   },
   confirmFinish(event){
     let content = event.detail
+    http.put(`/tomatoes/${this.data.tomato.id}`, {
+      description: content, aborted: true
+    })
+    .then(res=>{
+      wx.navigateBack({
+        to: -1
+      })
+    })
   },
   confirmCancel(){
     this.setData({ defaultSecond: 1500, againButtonVisable: false })
