@@ -10,6 +10,7 @@ Page({
   onShow: function(){
     this.fetchTodos()
     this.fetchTomatoes()
+    this.setData({ me: wx.getStorageSync('me') })
   },
   fetchTomatoes(){
     http.get('/tomatoes')

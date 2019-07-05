@@ -1,4 +1,5 @@
 // pages/binding/binding.js
+const {http} = require('../../lib/http.js')
 Page({
   /**
    * 页面的初始数据
@@ -6,16 +7,28 @@ Page({
   data: {
     account: "",
     password: "",
-    isBinding: true
   },
   watchAccount(evevt){
-
+    this.setData({
+      account: evevt.detail.value
+    })
   },
   watchPassword(event){
-
+    this.setData({
+      password: evevt.detail.value
+    })
   },
-  gotoRegister(){
-
+  bindingPC(){
+    http.post('/bindings', {
+      account: this.data.account,
+      password_digest: this.data.password
+    })
+    .then(res=>{
+      wx.setStorageSync('me', response.response.data.resource)
+      wx.redirectTo({
+        url: '/pages/home/home',
+      })
+    })
   },
   /**
    * 生命周期函数--监听页面加载
