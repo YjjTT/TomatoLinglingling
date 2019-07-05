@@ -12,9 +12,16 @@ Page({
   },
 
   onShow(){
-    http.get('/todos').then(response=>{
-      this.setData({ lists: response.response.data.resources})
-    })
+    let me = wx.getStorageSync('me')
+    if (me.account) {
+      http.get('/todos').then(response => {
+        this.setData({ lists: response.response.data.resources })
+      })
+    } else {
+      wx.redirectTo({
+        url: '/pages/login/login',
+      })
+    }
   },
 
   confirmCreate(event) {
